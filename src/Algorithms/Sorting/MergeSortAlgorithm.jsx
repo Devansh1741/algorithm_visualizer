@@ -3,9 +3,6 @@ export const MergeSort = array => {
     if(array.length <= 1) return array;
     const auxiliaryArray = array.slice();
     mergeSortHelper(array, 0, array.length - 1, auxiliaryArray, animations);
-    console.log("Auxiliary Array", auxiliaryArray);
-    console.log("Sorted Array", array);
-    console.log("Animations Array", animations);
     return animations;
 }
 

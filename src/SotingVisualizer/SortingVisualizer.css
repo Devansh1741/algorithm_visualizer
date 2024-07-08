@@ -1,8 +1,12 @@
+.main-container{
+    height: 100%;
+    display: grid;
+}
 .array-container {
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    height: 100%;
+    height: 90vh;
     width: 100%;
     padding: 0 10px;
     padding-top: 10px;
@@ -15,4 +19,12 @@
     background-color: turquoise;
     display: inline-block;
     flex: 1;
+}
+
+.footer{
+    height: 5vh;
+    display: flex;
+    align-items: center;
+    justify-content: center ;
+    background-color: black;
 }
