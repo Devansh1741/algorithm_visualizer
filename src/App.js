@@ -1,15 +1,18 @@
 import './App.css';
-import Footer from './Section/Footer';
-import Middle from './Section/Middle';
-import Navbar from './Section/Navbar';
+import {BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom';
+import LargeArraySorting from './Components/LargeArraySorting/LargeArraySorting';
 
 function App() {
   return (
-    <div className="App">
-      <Navbar/>
-      <Middle />
-      {/* <Footer/> */}
-    </div>
+    
+    <Router>
+      <div className="App">
+        <Routes>
+          <Route element={<LargeArraySorting/>} path='/sorting'/>
+          <Route element={<Navigate to={'/sorting'}/>} path='*'/>
+        </Routes>      
+      </div>
+    </Router>
   );
 }
 

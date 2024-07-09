@@ -5,15 +5,19 @@
 .array-container {
     display: flex;
     justify-content: center;
+    height: 95vh;
     align-items: flex-end;
-    height: 90vh;
     width: 100%;
-    padding: 0 10px;
-    padding-top: 10px;
+    padding:10px;
+    padding-bottom: 0;
+    border: 5px solid grey;
     box-sizing: border-box;
     overflow-x: auto;
 }
 
+.bar-transition .array-bar {
+    transition: all .6s linear;
+}
 .array-bar{
     width: 2px;
     background-color: turquoise;
@@ -21,7 +25,7 @@
     flex: 1;
 }
 
-.footer{
+.navbar{
     height: 5vh;
     display: flex;
     align-items: center;

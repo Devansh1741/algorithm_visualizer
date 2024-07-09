@@ -8,24 +8,3 @@ html, body {
   height: 100vh;
   flex-direction: column;
 }
-
-.navbar {
-  height: 5vh;
-  background-color: black;
-}
-
-.middle {
-  height: 95vh;
-  display: grid;
-  grid-template-columns: 5vh auto 5vh;
-  
-  .left, .right{
-    background-color: black;
-  }
-}
-
-/* .footer {
-  height: 5vh;
-  border-top: 1px solid white;
-  background-color: black;
-} */
