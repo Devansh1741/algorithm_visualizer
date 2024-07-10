@@ -3,6 +3,8 @@ import '../../Style/LargeArraySorting.css'
 import { MergeSort } from './Algorithms/MergeSortAlgorithm';
 import { BubbleSort } from './Algorithms/BubbleSortAlgorithm';
 import SelectionSortAlgorithm from './Algorithms/SelectionSortAlgorithm';
+import InsertionSortAlgorithm from './Algorithms/InsertionSortAlgorithm';
+import QuickSortAlgorithm from './Algorithms/QuickSortAlgorithm';
 
 
 export default function LargeArraySorting() {
@@ -29,6 +31,7 @@ export default function LargeArraySorting() {
     function resetArray() {
         const barContainer = document.getElementById('bar-Container');
         barContainer.classList.add('bar-transition');
+        
         generateArray();
         const arrayBars = document.getElementsByClassName('array-bar');
         for(let i = 0; i < arraySize; i++){
@@ -37,6 +40,11 @@ export default function LargeArraySorting() {
         setTimeout(() => {
             barContainer.classList.remove('bar-transition');
         }, 300);
+    }
+    function swapHeightOfBars(barOneStyle, barTwoStyle){
+        const heightOne = barOneStyle.height;
+        barOneStyle.height = barTwoStyle.height;
+        barTwoStyle.height = heightOne;
     }
     
     function mergeSort() {
@@ -96,10 +104,7 @@ export default function LargeArraySorting() {
                 }, i*animationSpeed)
             } else if (type === 2) {
                 setTimeout(() => {
-                    let heightOne = barOneStyle.height;
-                    let heightTwo = barTwoStyle.height;
-                    barOneStyle.height = heightTwo;
-                    barTwoStyle.height = heightOne;
+                    swapHeightOfBars(barOneStyle, barTwoStyle);
                 }, i*animationSpeed)
             } 
             else {
@@ -114,8 +119,7 @@ export default function LargeArraySorting() {
     function selectionSort() {
         const newArray = [...array];
         const animations = SelectionSortAlgorithm(newArray);
-        animationSpeed = 3;
-        // const length = animations.length;
+        animationSpeed = .5;
         const barsArray = document.getElementsByClassName('array-bar');
         animations.forEach(([type, idxOne, idxTwo], index) => {
             const barOneStyle = barsArray[idxOne].style;
@@ -130,14 +134,60 @@ export default function LargeArraySorting() {
                 }, index*animationSpeed)
             } else {
                 setTimeout(() => {
-                    const heightOne = barOneStyle.height;
-                    const heightTwo = barsArray[idxTwo].style.height;
-                    barsArray[idxTwo].style.height = heightOne;
-                    barOneStyle.height = heightTwo;
+                    swapHeightOfBars(barOneStyle, barsArray[idxTwo].style);
+                    barsArray[idxTwo].style.backgroundColor = primary_color;
                     barOneStyle.backgroundColor = tertiary_color;
                 }, index*animationSpeed);
             }
         })
+    }
+    
+    function insertionSort() {
+        const newArray = [...array];
+        const animations = InsertionSortAlgorithm(newArray);
+        animationSpeed = 300;
+        const barsArray = document.getElementsByClassName('array-bar');
+        animations.forEach(([type, idxOne, idxTwo], index) => {
+            const barOneStyle = barsArray[idxOne].style;
+            const isColorChange = type !== 2;
+            if(isColorChange){
+                setTimeout(() => {
+                    barOneStyle.backgroundColor = type === 0 ? secondary_color : tertiary_color;
+                }, index*animationSpeed);
+            } else {
+                setTimeout(() => {
+                    barOneStyle.backgroundColor = secondary_color;
+                    barsArray[idxTwo].style.backgroundColor = tertiary_color;
+                    swapHeightOfBars(barOneStyle, barsArray[idxTwo].style);
+                }, index*animationSpeed)
+            }
+        })
+    }
+    
+    function quickSort(){
+        const newArray = [...array];
+        const animations = QuickSortAlgorithm(newArray);
+        animationSpeed = 3;
+        console.log(animations);
+        const barsArray = document.getElementsByClassName('array-bar');
+        animations.forEach(([type, idxOne, idxTwo], index) => {
+            const barOneStyle = barsArray[idxOne].style;
+                if(type <= 1) {
+                    setTimeout(() => {
+                        barOneStyle.backgroundColor = type === 0 ? primary_color : secondary_color;
+                    }, index*animationSpeed);
+                } else if(type === 2){
+                    setTimeout(() => {
+                        swapHeightOfBars(barOneStyle, barsArray[idxTwo].style);
+                    }, index*animationSpeed)
+                } else if (type === 3){
+                    setTimeout(() => {
+                        barOneStyle.backgroundColor = tertiary_color;
+                    }, index*animationSpeed)
+                }
+            }
+        )
+        
     }
 
 
@@ -154,6 +204,8 @@ export default function LargeArraySorting() {
                     <button disabled={sortingInProgress} onClick={() => mergeSort()}>Merge Sort</button>
                     <button disabled={sortingInProgress} onClick={() => bubbleSort()}>Bubble Sort</button>
                     <button disabled={sortingInProgress} onClick={() => selectionSort()}>Selection Sort</button>
+                    <button disabled={sortingInProgress} onClick={() => insertionSort()}>Insertion Sort</button>
+                    <button disabled={sortingInProgress} onClick={() => quickSort()}>Quick Sort</button>
                 </div>
                 <div className='array-container' id='bar-Container'>
                     {array.map((value, idx) => (
@@ -162,7 +214,6 @@ export default function LargeArraySorting() {
                         </div>
                     ))}
                 </div>
-                {/* <div className="floor"></div> */}
             </div>
         </>
     )
